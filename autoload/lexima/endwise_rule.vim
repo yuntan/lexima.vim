@@ -28,6 +28,13 @@ function! lexima#endwise_rule#make()
   call add(rules, s:make_rule('^\s*case\>.*\%#', 'esac', ['sh', 'zsh'], []))
   call add(rules, s:make_rule('\%(^\s*#.*\)\@<!do\>.*\%#', 'done', ['sh', 'zsh'], []))
 
+  
+  " julia
+  call add(rules, s:make_rule('^\s*\%(module\|function\|struct\|if\|for\|while\)\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'julia', []))
+  call add(rules, s:make_rule('^\s*\%(begin\)\s*\%#', 'end', 'julia', []))
+  call add(rules, s:make_rule('\%(^\s*#.*\)\@<!do\%(\s*.*\)\?\s*\%#', 'end', 'julia', []))
+  call add(rules, s:make_rule('=\s*\%(if\|begin\)\>.*\%#', 'end', 'julia', []))
+
   return rules
 endfunction
 
